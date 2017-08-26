@@ -4,8 +4,8 @@ var User = mongoose.model('User');
 module.exports = (function() {
 	return {
 		create: function(req, res){
-      console.log(req.body)
-      User.findOne({user_name: req.body.name}, function(err,results){
+      console.log(req.body,'req.body')
+      User.findOne({name: req.body.name}, function(err,results){
         console.log(results)
         if(results == null){  
   	  	  var user = new User({name:req.body.name})
@@ -21,7 +21,8 @@ module.exports = (function() {
         }	
         else{
           console.log("user already exists!")
-          res.json(results)
+          error = {already: 'User already exists, please log in or use a different name'};
+          res.json(error)
         }
       })
   },
