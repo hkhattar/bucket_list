@@ -59,6 +59,18 @@ app.controller('belt_controller', ['$scope','$cookies','$rootScope','$location',
         
   }
 
+  $scope.addItem = function(){
+      $scope.new_item.createdBy_name = $cookies.get('name');
+      $scope.new_item.createdBy_id = $cookies.get('_id');
+
+      // console.log(this.newTodo);
+      console.log('$scope.new_item',$scope.new_item)
+      belt_factory.create($scope.new_item, function(returnedData){
+        $scope.new_item = {}
+        index();
+      })
+  }
+
   	}
   	// function
   	

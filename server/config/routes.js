@@ -14,4 +14,8 @@ module.exports = function(app) {
 	})
 	
 	app.get('/users', users.index);
+
+	app.post('/new_item', function(req,res){
+		users.createItem(req,res)
+	})
 };

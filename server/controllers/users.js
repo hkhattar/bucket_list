@@ -36,6 +36,90 @@ module.exports = (function() {
         res.json(results)
       }
     })
+  },
+
+  // createItem: function(req,res)
+  // {
+  // 	console.log('REQ.BODY',req.body)
+  // }
+
+
+
+
+
+  createItem: function(req,res){
+    console.log(req.body);
+    var item = new Item({title:req.body.title,description: req.body.description, createdBy_name: req.body.createdBy_name, createdBy_id:req.body.createdBy_id})
+    item.save(function(err1){
+      if(err1){
+        console.log("couldnt create new item");
+        res.json(false)
+      } else {
+        var userA = req.body.createdBy_id;
+        User.findOne({_id: userA}, function(errA, first){
+          if (errA) {
+            console.log("issue at error A");
+          } else {
+          first.bucketlist.push(item);
+          first.save(function(err2){
+            if(err2){
+              console.log("couldnt add to creators bucket list");
+              res.json(false)
+            } else {
+              if(req.body.tagged){
+                var userB = req.body.tagged;
+                User.findOne({_id:userB._id}, function(errB, second){
+                  if(errB){
+                    console.log("issue with error B");
+                  } else {
+                    second.bucketlist.push(item);
+                    second.save(function(err3){
+                      if(err3){
+                        console.log("couldnt add to tagged user's bucket list");
+                        res.json(false)
+                      } else {
+                        console.log("completed associations");
+                        // res.json(item)
+                      }
+                    })
+                  }
+                })
+              }
+              res.json(item)
+          }
+        })
+      }
+    })
+      }
+    })
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	}
 })();

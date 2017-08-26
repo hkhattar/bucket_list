@@ -27,6 +27,18 @@ app.factory('belt_factory',function($http){
                 }
               });
             };
+
+            factory.create = function(new_item, callback)
+            {
+              $http.post('/new_item',new_item).then(function(returned_data)
+              {
+                if(typeof(callback)=='function')
+                {
+                    new_item = returned_data.data;
+                    callback(new_item);
+                }
+              });
+            };
         return factory;
     })
 
