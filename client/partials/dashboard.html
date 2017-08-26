@@ -12,9 +12,24 @@
             <div class="row">
               <div class="input-field col s12">
               Title:
-                <input  id="name" type="text" class="validate" ng-model='new_item' name="name">
+                <input  id="title" type="text" class="validate" ng-model='new_item.title' name="title">
                 <label for="name" class="active"></label>
               </div>
+              <div class="input-field col s12">
+              Description:
+                <input  id="description" type="text" class="validate" ng-model='new_item.description' name="description">
+                <label for="name" class="active"></label>
+              </div>
+              <div class="row">
+              
+               <select class="browser-default" ng-model='new_item.tagged' ng-options="user.name for user in users | filter:{_id : '!'+logged_id }">
+                 <!--  <option value="" disabled selected>Select </option>
+                  <option value="Drive Way">Drive way</option>
+                  <option value="Garage">Garage</option>
+                  <option value="Car Park">Car Park</option> -->
+               </select>
+            </div>
+
             </div>
          
             <input type="submit" class="btn" value="Add to list" ng-click='addItem()'>
@@ -24,3 +39,5 @@
     </div>
  </div>
 </div>
+
+

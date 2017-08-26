@@ -12,8 +12,23 @@ app.controller('belt_controller', ['$scope','$cookies','$rootScope','$location',
       //   $scope.logged = $cookies.get('name');
       //   }
       $scope.logged = $cookies.get('name');
+      $scope.logged_id = $cookies.get('_id');
 
-	$scope.addUser = function(data)
+
+	
+
+    function index(){
+      
+        belt_factory.index(function(returnedData){
+          $scope.users = returnedData;
+        });
+      };
+
+      index();
+
+
+
+    $scope.addUser = function(data)
     {
         belt_factory.createUser($scope.newUser,function(user)
         {

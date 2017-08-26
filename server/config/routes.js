@@ -13,4 +13,5 @@ module.exports = function(app) {
 		users.create(req,res)
 	})
 	
+	app.get('/users', users.index);
 };

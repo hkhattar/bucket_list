@@ -26,5 +26,16 @@ module.exports = (function() {
         }
       })
   },
+
+    index: function(req,res){
+    User.find({}).populate('bucketlist').exec(function(err, results){
+      if(err){
+        console.log("error populating bucket list");
+      } else {
+        console.log("found all users and populated list");
+        res.json(results)
+      }
+    })
+  }
 	}
 })();

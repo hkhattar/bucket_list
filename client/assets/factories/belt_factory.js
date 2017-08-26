@@ -15,6 +15,18 @@ app.factory('belt_factory',function($http){
               callback(output)
             })
           }
+
+             factory.index = function(callback)
+             {
+              $http.get('/users').then(function(returned_data)
+              {
+                if(typeof(callback)=='function')
+                {
+                  users = returned_data.data;
+                  callback(users);
+                }
+              });
+            };
         return factory;
     })
 
